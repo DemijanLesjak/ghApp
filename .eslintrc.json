@@ -1,0 +1,174 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "array-bracket-newline": [
+          "error",
+          "consistent"
+        ],
+        "array-bracket-spacing": "error",
+        "keyword-spacing": ["error", { "before": true, "after": true }],
+        "brace-style": "error",
+        "curly": "error",
+        "eqeqeq": "error",
+        "getter-return": "error",
+        "indent": [
+          "warn",
+          2,
+          { "SwitchCase": 1 }
+        ],
+        "no-console": "error",
+        "quote-props": ["error", "as-needed"],
+        "no-debugger": "error",
+        "no-duplicate-imports": "error",
+        "no-extra-semi": "error",
+        "no-fallthrough": "error",
+        "no-inline-comments": "error",
+        "no-irregular-whitespace": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
+          }
+        ],
+        "no-alert": "error",
+        "no-multi-spaces": "error",
+        "no-prototype-builtins": "off",
+        "no-shadow": "off",
+        "no-trailing-spaces": "error",
+        "no-unreachable": "error",
+        "no-use-before-define": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "radix": "error",
+        "semi": "error",
+        "space-infix-ops": "error",
+        "spaced-comment": [
+          "error",
+          "always"
+        ],
+        "quotes": [
+          "error",
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": [
+              "variableLike"
+            ],
+            "format": [
+              "strictCamelCase",
+              "UPPER_CASE"
+            ],
+            "leadingUnderscore": "allow"
+          },
+          {
+            "selector": [
+              "variable",
+              "function"
+            ],
+            "modifiers": [
+              "exported"
+            ],
+            "format": [
+              "strictCamelCase",
+              "PascalCase",
+              "UPPER_CASE"
+            ]
+          },
+          {
+            "selector": [
+              "variable",
+              "function"
+            ],
+            "modifiers": [
+              "readonly",
+              "static"
+            ],
+            "format": [
+              "strictCamelCase",
+              "UPPER_CASE"
+            ]
+          },
+          {
+            "selector": [
+              "variable",
+              "memberLike",
+              "function"
+            ],
+            "format": [
+              "strictCamelCase",
+              "snake_case",
+              "PascalCase",
+              "UPPER_CASE"
+            ],
+            "leadingUnderscore": "allow"
+          },
+          {
+            "selector": [
+              "variable",
+              "memberLike",
+              "function"
+            ],
+            "modifiers": [
+              "private"
+            ],
+            "format": [
+              "strictCamelCase"
+            ],
+            "leadingUnderscore": "require"
+          }
+        ],
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "space-before-blocks": [
+          "error",
+          "always"
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "rules": {
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1
+          }
+        ]
+      }
+    }
+  ],
+  "extends": ["prettier"]
+}
