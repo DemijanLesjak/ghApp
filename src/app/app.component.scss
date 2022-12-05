@@ -43,6 +43,22 @@
       .row {
         display: flex;
         justify-content: space-between;
+
+        .switch-icon {
+          color: white;
+          cursor: pointer;
+          background-color: $primary-color;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:active {
+            opacity: 0.8;
+          }
+        }
       }
     }
   }
