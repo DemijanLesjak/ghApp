@@ -1,0 +1,14 @@
+<div class="selection-box" (click)="toggleDropdownList()">
+  <div class="value">{{selection}}</div>
+  <div class="icon" *ngIf="closed">
+    <mat-icon>expand_more</mat-icon>
+  </div>
+  <div class="icon" *ngIf="!closed">
+    <mat-icon>expand_less</mat-icon>
+  </div>
+</div>
+<div class="options-list" *ngIf="!closed" (mouseenter)="activateMouse()" (mouseleave)="mouseInactivate()" (mousemove)="move()">
+  <div class="option-item" *ngFor="let item of options" (click)="selectValue(item)" [class.active]="this.activeValue === item">
+  {{item}}
+  </div>
+</div>
