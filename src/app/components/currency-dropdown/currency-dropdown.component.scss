@@ -29,10 +29,16 @@
 
   .option-item {
     cursor: pointer;
-  &.active {
-    background-color: blue;
-    color: white;
+    &.active, &:hover {
+      background-color: blue;
+      color: white;
+    }
   }
 
+  &.typing {
+    .option-item:hover {
+      background-color: inherit;
+      color: inherit;
+    }
   }
 }

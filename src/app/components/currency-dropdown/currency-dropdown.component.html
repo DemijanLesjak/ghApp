@@ -7,8 +7,8 @@
     <mat-icon>expand_less</mat-icon>
   </div>
 </div>
-<div class="options-list" *ngIf="!closed" (mouseenter)="activateMouse()" (mouseleave)="mouseInactivate()" (mousemove)="move()">
-  <div class="option-item" *ngFor="let item of options" (click)="selectValue(item)" [class.active]="this.activeValue === item">
+<div class="options-list" *ngIf="!closed" (mousemove)="mouseMove()" [class.typing]="typing">
+  <div class="option-item" *ngFor="let item of options; let i = index" (click)="selectValue(item)" [class.active]="this.activeValue === item" [id]="'item-' + i">
   {{item}}
   </div>
 </div>

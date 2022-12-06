@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Inject, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { filter, fromEvent, map, merge, Observable, scan, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ExchangeRateService } from '../../services/exchange-rate.service';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @UntilDestroy()
 @Component({
@@ -9,13 +12,23 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   styleUrls: ['./currency-dropdown.component.scss'],
 })
 export class CurrencyDropdownComponent implements OnInit {
-  options: string[] = ['BTC', 'BTK', 'CZK', 'XRP', 'EUR', 'DOT', 'ETH'];
+  @Input() defaultValue: string | undefined;
+  options: string[] = [];
   selection: string = this.options[0];
   activeValue: string = '';
   closed: boolean = true;
-  mouseHovered: boolean = false;
+  typing: boolean = false;
   keyDown$ = fromEvent<KeyboardEvent>(document, 'keydown');
   reset$: Subject<string> = new Subject();
+  // represents document object.
+  doc: any;
+
+  constructor(public exchangeRate: ExchangeRateService,
+              public router: Router,
+              public el: ElementRef,
+              @Inject(DOCUMENT) doc: any) {
+    this.doc = doc;
+  }
 
   toggleDropdownList() {
     this.closed = !this.closed;
@@ -23,6 +36,12 @@ export class CurrencyDropdownComponent implements OnInit {
 
   ngOnInit() {
     this.autocompleteHandler();
+
+    this.exchangeRate.supportedSymbols.pipe(
+      untilDestroyed(this)
+    ).subscribe((symbols: string[]) => {
+      this.options = symbols;
+    });
   }
 
   /**
@@ -35,6 +54,7 @@ export class CurrencyDropdownComponent implements OnInit {
       }),
       tap((res: KeyboardEvent) => {
         console.log(res);
+        this.typing = true;
       }),
       map((res: KeyboardEvent) => {
         if (res.key === 'Enter') {
@@ -64,6 +84,7 @@ export class CurrencyDropdownComponent implements OnInit {
           const tempValue = item.slice(0, searchVal.length);
           return tempValue.toLowerCase() === searchVal.toLowerCase();
         })[0];
+        this.scrollToSelection(this.activeValue);
         this.resetAutocomplete();
       }
     });
@@ -80,17 +101,18 @@ export class CurrencyDropdownComponent implements OnInit {
     this.toggleDropdownList();
   }
 
-  move() {
-    console.log('movvving');
-
+  // Scroll to selected symbol if using keyboard
+  scrollToSelection(symbol: string) {
+    const index = this.options.indexOf(symbol);
+    if (index < 0) {
+      return;
+    }
+    this.doc.getElementById(`item-${index}`).scrollIntoView();
   }
 
-  activateMouse() {
+  mouseMove() {
     this.activeValue = '';
-    this.mouseHovered = true;
+    this.typing = false;
   }
 
-  mouseInactivate() {
-    this.mouseHovered = false;
-  }
 }
