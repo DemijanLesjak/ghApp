@@ -1,19 +1,36 @@
 <div class="container">
   <div class="content">
-    <div class="amount-input-wrapper">
+
+    <div class="amount-input-wrapper" [formGroup]="currencyForm">
       <p class="label">Amount</p>
-      <input class="amount-input" type="number">
+      <input class="amount-input" type="number" formControlName="amount">
     </div>
 
     <div class="currency-input-wrapper">
       <div class="row">
-        <app-currency-dropdown></app-currency-dropdown>
-        <div class="switch-icon" mat>
+        <app-currency-dropdown [form]="currencyForm" controlName="currencyFrom"></app-currency-dropdown>
+        <div class="switch-icon" mat (click)="toggleSymbols()">
           <mat-icon>swap_horiz</mat-icon>
         </div>
-        <app-currency-dropdown></app-currency-dropdown>
-
+        <app-currency-dropdown [form]="currencyForm" controlName="currencyTo"></app-currency-dropdown>
       </div>
     </div>
+
+    <div class="conversion-rate-wrapper">
+      <div class="row">
+        <div class="hr-line"></div>
+        <div class="conversion-text">1 <span>{{currencyForm.controls.currencyFrom.value}}</span> = {{rate}} <span>{{currencyForm.controls.currencyTo.value}}</span></div>
+        <div class="hr-line"></div>
+      </div>
+    </div>
+
+    <div class="conversion-result-wrapper">
+      <div class="column">
+        <div class="input-value">{{currencyForm.controls.amount.value}} <span>{{currencyForm.controls.currencyFrom.value}}</span></div>
+        <div class="input-value equals">=</div>
+        <div class="output-value">{{currencyForm.controls.amount.value * rate! | number:'1.2-2'}} <span>{{currencyForm.controls.currencyTo.value}}</span></div>
+      </div>
+    </div>
+
   </div>
 </div>

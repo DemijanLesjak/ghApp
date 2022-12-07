@@ -1,9 +1,16 @@
-import { Inject, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  Inject,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { filter, fromEvent, map, merge, Observable, scan, Subject, tap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ExchangeRateService } from '../../services/exchange-rate.service';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -12,15 +19,16 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./currency-dropdown.component.scss'],
 })
 export class CurrencyDropdownComponent implements OnInit {
-  @Input() defaultValue: string | undefined;
+  @Input() form!: FormGroup;
+  @Input() controlName!: string;
+
   options: string[] = [];
-  selection: string = this.options[0];
   activeValue: string = '';
   closed: boolean = true;
   typing: boolean = false;
   keyDown$ = fromEvent<KeyboardEvent>(document, 'keydown');
   reset$: Subject<string> = new Subject();
-  // represents document object.
+  // represents document object to access elements for scrollIntoView.
   doc: any;
 
   constructor(public exchangeRate: ExchangeRateService,
@@ -28,6 +36,10 @@ export class CurrencyDropdownComponent implements OnInit {
               public el: ElementRef,
               @Inject(DOCUMENT) doc: any) {
     this.doc = doc;
+  }
+
+  c(): FormControl {
+    return this.form.get(this.controlName) as FormControl;
   }
 
   toggleDropdownList() {
@@ -97,7 +109,7 @@ export class CurrencyDropdownComponent implements OnInit {
   }
 
   selectValue(symbol: string) {
-    this.selection = symbol;
+    this.c().setValue(symbol);
     this.toggleDropdownList();
   }
 
