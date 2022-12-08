@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ChartComponent } from './chart.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 describe('ChartComponent', () => {
   let component: ChartComponent;
@@ -8,9 +9,13 @@ describe('ChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartComponent ]
+      imports: [
+        HttpClientModule,
+        HighchartsChartModule
+      ],
+      declarations: [ChartComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ChartComponent);
     component = fixture.componentInstance;

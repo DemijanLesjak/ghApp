@@ -14,7 +14,7 @@ import { ChartComponent } from './components/chart/chart.component';
   declarations: [
     AppComponent,
     CurrencyDropdownComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

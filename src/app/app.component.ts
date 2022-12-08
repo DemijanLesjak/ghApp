@@ -64,7 +64,7 @@ export class AppComponent {
     const tempTo: string = this.currencyForm.controls.currencyTo.value;
     this.currencyForm.controls.currencyTo.setValue(tempFrom);
     this.currencyForm.controls.currencyFrom.setValue(tempTo);
-    this.refreshExchangeRate(tempFrom, tempTo);
+    this.refreshExchangeRate(tempTo, tempFrom);
     this.switchingCurrencies = false;
   }
 
