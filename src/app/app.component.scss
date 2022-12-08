@@ -1,7 +1,7 @@
 @import "../variables";
 
 .container {
-  background-color: $primary-color;
+  background: $primary-gradient;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@
       .switch-icon {
         color: white;
         cursor: pointer;
-        background-color: $primary-color;
+        background: $primary-gradient;
         width: 40px;
         height: 40px;
         border-radius: 20px;
