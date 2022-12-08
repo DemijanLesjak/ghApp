@@ -23,6 +23,8 @@ export class AppComponent {
   title = 'gatehubApp';
   rate: number | undefined;
   state: State = State.loading;
+  chartData: {date: string, rate: number}[] = [];
+  today: string = new Date().toISOString().slice(0, 10);
 
   currencyForm: FormGroup<CurrencyFormGroup> = this._fb.group({
     amount: [100, [Validators.required, Validators.min(0)]],
@@ -46,6 +48,7 @@ export class AppComponent {
     this.currencyForm.controls.currencyFrom.valueChanges.subscribe((value: string) => {
       this.refreshExchangeRate(value, this.currencyForm.controls['currencyTo'].value);
     });
+
   }
 
   toggleSymbols() {
@@ -60,7 +63,6 @@ export class AppComponent {
     this.exchangeRateService.getExchangeRate(
       from, to).subscribe(
       (rate: number) => {
-        console.log('new rate', rate);
         this.rate = rate;
         this.state = State.loaded;
       },
@@ -68,6 +70,10 @@ export class AppComponent {
         this.state = State.error;
       }
     );
+
+    this.exchangeRateService.getHistoryData(from, to).subscribe((value: {date: string, rate: number}[]) => {
+      this.chartData = value;
+    });
   }
 
 }

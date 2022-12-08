@@ -1,4 +1,4 @@
-<div class="selection-box" (click)="toggleDropdownList()" [formGroup]="form!">
+<div class="selection-box" (click)="toggleDropdownList()" [formGroup]="form!" [class.active]="!closed">
   <div class="value" [formControlName]="controlName" ngDefaultControl >{{c().value}}</div>
   <div class="icon" *ngIf="closed">
     <mat-icon>expand_more</mat-icon>

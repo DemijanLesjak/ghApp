@@ -4,15 +4,20 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 30px;
-  border-radius: 15px;
-  width: 65px;
+  height: 40px;
+  border-radius: 20px;
+  width: 90px;
   box-sizing: border-box;
   border: 2px solid $secondary-text-color;
   cursor: pointer;
 
+  &.active {
+    border: 2px solid $primary-color;
+  }
+
   .value {
     padding-left: 8px;
+    font-weight: bold;
   }
 
   .icon {

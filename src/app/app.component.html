@@ -8,11 +8,17 @@
 
     <div class="currency-input-wrapper">
       <div class="row">
-        <app-currency-dropdown [form]="currencyForm" controlName="currencyFrom"></app-currency-dropdown>
+        <div>
+          <p class="label">From</p>
+          <app-currency-dropdown [form]="currencyForm" controlName="currencyFrom"></app-currency-dropdown>
+        </div>
         <div class="switch-icon" mat (click)="toggleSymbols()">
           <mat-icon>swap_horiz</mat-icon>
         </div>
-        <app-currency-dropdown [form]="currencyForm" controlName="currencyTo"></app-currency-dropdown>
+        <div>
+          <p class="label">To</p>
+          <app-currency-dropdown [form]="currencyForm" controlName="currencyTo"></app-currency-dropdown>
+        </div>
       </div>
     </div>
 
@@ -30,6 +36,15 @@
         <div class="input-value equals">=</div>
         <div class="output-value">{{currencyForm.controls.amount.value * rate! | number:'1.2-2'}} <span>{{currencyForm.controls.currencyTo.value}}</span></div>
       </div>
+    </div>
+
+    <div class="chart-wrapper">
+      <div class="row">
+        <div class="hr-line"></div>
+        <div class="date"><mat-icon class="clock-icon">schedule</mat-icon><span>{{today}}</span></div>
+        <div class="hr-line"></div>
+      </div>
+      <app-chart [data]="chartData"></app-chart>
     </div>
 
   </div>
